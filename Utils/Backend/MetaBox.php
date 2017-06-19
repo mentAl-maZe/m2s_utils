@@ -281,11 +281,12 @@ class MetaBox {
 			return;
 		}
 
-		if (
-			current_user_can( 'edit_' . $this->getCapabilityType(), $postId ) &&
-			isset( $_POST[ $id ] )
-		) {
-			update_post_meta( $postId, '_' . $id, $_POST[ $id ] );
+		if ( current_user_can( 'edit_' . $this->getCapabilityType(), $postId ) ) {
+			if (isset( $_POST[ $id ] )) {
+				update_post_meta( $postId, '_' . $id, $_POST[ $id ] );
+			} else {
+				delete_post_meta( $postId, '_' . $id);
+			}
 		}
 	}
 
